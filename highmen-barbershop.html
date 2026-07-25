@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highmen Barbershop — Corte, Barba e Precisão</title>
+<meta name="description" content="Highmen Barbershop. Cortes de precisão, barba na navalha e atendimento de alto padrão. Marque seu horário.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --bg-alt:#0d1420;
+    --panel:#132537;
+    --line:#2a3138;
+    --gold:#DA7133;
+    --gold-bright:#E89B62;
+    --cream:#F5F1E6;
+    --cream-dim:#A9A9A5;
+    --wine:#AA1D1D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:#000000;}
+  :focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;}
+
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .italic-accent{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(12,12,13,0.7);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(218,113,51,0.15);
+    transition:background .3s;
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;max-width:1180px;margin:0 auto;
+  }
+  .logo{
+    font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;
+    letter-spacing:0.08em;color:var(--cream);display:flex;align-items:center;gap:10px;
+  }
+  .logo .dot{color:var(--gold);}
+  .nav-links{display:flex;gap:34px;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;}
+  .nav-links a{position:relative;color:var(--cream-dim);transition:color .25s;}
+  .nav-links a:hover{color:var(--gold-bright);}
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);
+    transition:width .25s;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    padding:10px 22px;border:1px solid var(--gold);border-radius:2px;
+    font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;
+    color:var(--gold-bright);transition:all .25s;white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--gold);color:#000000;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger span{width:24px;height:2px;background:var(--cream);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    position:relative;padding:140px 28px 80px;
+    background:
+      radial-gradient(ellipse at 75% 15%, rgba(218,113,51,0.10), transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(170,29,29,0.5), transparent 60%),
+      var(--bg);
+  }
+  .hero-inner{max-width:1180px;margin:0 auto;width:100%;position:relative;}
+  .eyebrow{
+    display:flex;align-items:center;gap:14px;
+    font-size:0.8rem;letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:26px;font-weight:500;
+  }
+  .eyebrow .razor-line{width:44px;height:1px;background:var(--gold);}
+  .hero h1{
+    font-size:clamp(3rem, 9vw, 6.8rem);
+    line-height:0.95;font-weight:700;
+    background:linear-gradient(100deg, var(--cream) 0%, var(--cream) 38%, var(--gold-bright) 62%, var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:28px;max-width:14ch;
+  }
+  .hero p.lead{
+    font-size:1.15rem;color:var(--cream-dim);max-width:44ch;line-height:1.6;margin-bottom:44px;
+  }
+  .hero-ctas{display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+  .btn-primary{
+    background:var(--gold);color:#000000;padding:17px 34px;border-radius:2px;
+    font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+    font-size:0.88rem;display:inline-flex;align-items:center;gap:10px;
+    transition:transform .25s, background .25s;
+  }
+  .btn-primary:hover{background:var(--gold-bright);transform:translateY(-2px);}
+  .btn-secondary{
+    padding:17px 30px;border:1px solid var(--line);border-radius:2px;
+    font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+    font-size:0.88rem;color:var(--cream-dim);display:inline-flex;align-items:center;gap:10px;
+    transition:border-color .25s, color .25s;
+  }
+  .btn-secondary:hover{border-color:var(--gold);color:var(--gold-bright);}
+
+  .hero-stats{
+    display:flex;gap:50px;margin-top:70px;padding-top:34px;border-top:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .hero-stats div b{
+    display:block;font-family:'Oswald',sans-serif;font-size:2rem;color:var(--gold-bright);font-weight:600;
+  }
+  .hero-stats div span{font-size:0.78rem;color:var(--cream-dim);text-transform:uppercase;letter-spacing:0.08em;}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:16px 0;overflow:hidden;white-space:nowrap;
+  }
+  .marquee-track{display:inline-flex;animation:scroll-left 28s linear infinite;}
+  .marquee span{
+    font-family:'Oswald',sans-serif;font-size:0.95rem;letter-spacing:0.15em;text-transform:uppercase;
+    color:var(--cream-dim);padding:0 30px;display:flex;align-items:center;gap:30px;
+  }
+  .marquee span::after{content:'✂';color:var(--gold);}
+  @keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:120px 0;}
+  .section-head{max-width:640px;margin-bottom:64px;}
+  .section-head .eyebrow{color:var(--gold);}
+  .section-head h2{font-size:clamp(2.1rem,4.5vw,3.2rem);font-weight:600;line-height:1.05;color:var(--cream);}
+  .section-head p{color:var(--cream-dim);margin-top:18px;font-size:1.02rem;max-width:52ch;line-height:1.6;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service-card{
+    background:var(--bg);padding:40px 32px;transition:background .3s;position:relative;
+  }
+  .service-card:hover{background:var(--bg-alt);}
+  .service-card .icon{width:38px;height:38px;color:var(--gold);margin-bottom:26px;}
+  .service-card h3{font-size:1.3rem;font-weight:600;margin-bottom:10px;color:var(--cream);}
+  .service-card p.desc{color:var(--cream-dim);font-size:0.92rem;line-height:1.55;margin-bottom:22px;min-height:44px;}
+  .service-card .meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--line);padding-top:18px;
+  }
+  .service-card .price{font-family:'Oswald',sans-serif;font-size:1.4rem;color:var(--gold-bright);font-weight:600;}
+  .service-card .time{font-size:0.78rem;color:var(--cream-dim);text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* ---------- DIFFERENTIALS ---------- */
+  .diff-wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+  .diff-visual{
+    aspect-ratio:4/5;border-radius:2px;position:relative;overflow:hidden;
+    background:
+      linear-gradient(160deg, #132537 0%, #000000 55%, #000000 100%);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .diff-visual svg{width:55%;height:55%;opacity:0.9;}
+  .diff-list{display:flex;flex-direction:column;gap:0;}
+  .diff-item{
+    display:flex;gap:22px;padding:26px 0;border-bottom:1px solid var(--line);
+  }
+  .diff-item:first-child{padding-top:0;}
+  .diff-item .num{font-family:'Oswald',sans-serif;color:var(--gold);font-size:0.95rem;font-weight:600;min-width:28px;}
+  .diff-item h4{font-size:1.08rem;font-weight:600;margin-bottom:6px;color:var(--cream);}
+  .diff-item p{color:var(--cream-dim);font-size:0.92rem;line-height:1.55;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+  .gallery-tile{
+    aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .gallery-tile::before{content:'';position:absolute;inset:0;transition:transform .5s;}
+  .gallery-tile:nth-child(1)::before{background:linear-gradient(135deg,#132537,#000000);}
+  .gallery-tile:nth-child(2)::before{background:linear-gradient(135deg,#AA1D1D,#3D0F0F);}
+  .gallery-tile:nth-child(3)::before{background:linear-gradient(135deg,#132537,#000000);}
+  .gallery-tile:nth-child(4)::before{background:linear-gradient(135deg,#000000,#132537);}
+  .gallery-tile:nth-child(5)::before{background:linear-gradient(135deg,#3D0F0F,#AA1D1D);}
+  .gallery-tile:nth-child(6)::before{background:linear-gradient(135deg,#000000,#132537);}
+  .gallery-tile:hover::before{transform:scale(1.08);}
+  .gallery-tile img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1;transition:transform .5s;filter:saturate(0.92) contrast(1.05);}
+  .gallery-tile:hover img{transform:scale(1.08);}
+  .gallery-tile .ig-icon{position:absolute;bottom:10px;right:10px;z-index:2;width:22px;height:22px;color:var(--gold-bright);opacity:0.9;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6));}
+  .gallery-cta{
+    display:flex;align-items:center;justify-content:center;gap:12px;margin-top:34px;
+    color:var(--cream-dim);font-size:0.95rem;
+  }
+  .gallery-cta a{color:var(--gold-bright);font-weight:600;border-bottom:1px solid var(--gold);}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .testi-card{
+    background:var(--panel);border:1px solid var(--line);padding:34px 28px;border-radius:2px;
+  }
+  .testi-card .stars{color:var(--gold);font-size:0.95rem;letter-spacing:2px;margin-bottom:18px;}
+  .testi-card p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;line-height:1.6;color:var(--cream);margin-bottom:22px;}
+  .testi-card .who{font-size:0.85rem;color:var(--cream-dim);text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* ---------- LOCATION / BOOKING ---------- */
+  .booking{
+    background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .booking-wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:70px;align-items:center;}
+  .booking-info h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:20px;}
+  .booking-info p{color:var(--cream-dim);margin-bottom:32px;max-width:48ch;line-height:1.6;}
+  .info-row{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:flex-start;}
+  .info-row:last-of-type{border-bottom:none;}
+  .info-row svg{width:20px;height:20px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+  .info-row .label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:2px;}
+  .info-row .value{color:var(--cream);font-size:0.98rem;}
+  .booking-panel{
+    background:var(--bg);border:1px solid var(--line);padding:44px 36px;border-radius:2px;
+    text-align:center;
+  }
+  .booking-panel .badge{
+    width:56px;height:56px;border-radius:50%;border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 22px;
+  }
+  .booking-panel h3{font-size:1.5rem;margin-bottom:14px;}
+  .booking-panel p{color:var(--cream-dim);font-size:0.92rem;margin-bottom:28px;line-height:1.55;}
+  .booking-panel .btn-primary{width:100%;justify-content:center;margin-bottom:14px;}
+  .booking-panel .btn-secondary{width:100%;justify-content:center;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:60px 0 32px;}
+  .footer-top{
+    display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px;
+    padding-bottom:40px;border-bottom:1px solid var(--line);margin-bottom:26px;
+  }
+  .footer-top .logo{font-size:1.6rem;}
+  .footer-socials{display:flex;gap:16px;}
+  .footer-socials a{
+    width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;transition:border-color .25s,color .25s;color:var(--cream-dim);
+  }
+  .footer-socials a:hover{border-color:var(--gold);color:var(--gold-bright);}
+  .footer-socials svg{width:17px;height:17px;}
+  .footer-bottom{display:flex;justify-content:space-between;color:var(--cream-dim);font-size:0.8rem;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .float-wa{
+    position:fixed;bottom:26px;right:26px;z-index:90;
+    width:58px;height:58px;border-radius:50%;background:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    transition:transform .25s;
+  }
+  .float-wa:hover{transform:scale(1.08);}
+  .float-wa svg{width:28px;height:28px;color:#000000;}
+
+  @media (max-width:860px){
+    .nav-links, .nav-cta{display:none;}
+    .burger{display:flex;}
+    .services-grid{grid-template-columns:1fr;}
+    .diff-wrap{grid-template-columns:1fr;gap:40px;}
+    .diff-visual{aspect-ratio:16/9;}
+    .testi-grid{grid-template-columns:1fr;}
+    .booking-wrap{grid-template-columns:1fr;gap:44px;}
+    .gallery-grid{grid-template-columns:repeat(3,1fr);}
+    .hero-stats{gap:30px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;transition-duration:0.01ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">HIGHMEN<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#reserva">Localização</a>
+    </div>
+    <a href="https://client.tuaagenda.com/c/LuizBarbeiro" class="nav-cta" target="_blank" rel="noopener">Marcar horário</a>
+    <button class="burger" aria-label="Abrir menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow reveal"><span class="razor-line"></span>Highmen Barbershop</div>
+    <h1 class="reveal">CORTE DE HOMEM,<br>PADRÃO DE MESTRE.</h1>
+    <p class="lead reveal">Fade impecável, barba na navalha e um atendimento que respeita seu tempo. Aqui, cada detalhe do seu visual é tratado com técnica — não é só corte, é precisão.</p>
+    <div class="hero-ctas reveal">
+      <a href="https://wa.me/5519981437634" class="btn-primary" target="_blank" rel="noopener">
+        Chamar no Whatsapp
+      </a>
+      <a href="https://www.instagram.com/highmen.barbershop/" class="btn-secondary" target="_blank" rel="noopener">
+        Ver no Instagram
+      </a>
+    </div>
+    <div class="hero-stats reveal">
+      <div><b>+5 anos</b><span>De navalha na mão</span></div>
+      <div><b>+3.000</b><span>Cortes entregues</span></div>
+      <div><b>4.9 ★</b><span>Avaliação média</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>FADE<span></span></span><span>BARBA NA NAVALHA</span><span>PIGMENTAÇÃO</span><span>DEGRADÊ</span><span>SOBRANCELHA</span><span>ATENDIMENTO VIP</span>
+    <span>FADE</span><span>BARBA NA NAVALHA</span><span>PIGMENTAÇÃO</span><span>DEGRADÊ</span><span>SOBRANCELHA</span><span>ATENDIMENTO VIP</span>
+  </div>
+</div>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="razor-line"></span>Serviços</div>
+      <h2>O que sai da nossa cadeira</h2>
+      <p>Preços de referência — confirme o valor exato e a disponibilidade direto no WhatsApp.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 8.5 20 19M8.5 15.5 20 5"/></svg>
+        <h3>Corte Masculino</h3>
+        <p class="desc">Do clássico ao degradê moderno, ajustado ao formato do seu rosto.</p>
+        <div class="meta"><span class="price">R$ 45</span><span class="time">40 min</span></div>
+      </div>
+      <div class="service-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3c3 2 3 6 1 9-2 3-2 6 1 9M12 3c3 2 3 6 1 9-2 3-2 6 1 9"/></svg>
+        <h3>Barba na Navalha</h3>
+        <p class="desc">Toalha quente, alinhamento na navalha e acabamento de salão.</p>
+        <div class="meta"><span class="price">R$ 35</span><span class="time">30 min</span></div>
+      </div>
+      <div class="service-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>
+        <h3>Combo Corte + Barba</h3>
+        <p class="desc">O pacote mais pedido: visual completo em uma única sessão.</p>
+        <div class="meta"><span class="price">R$ 70</span><span class="time">65 min</span></div>
+      </div>
+      <div class="service-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20c4-10 12-10 16 0"/><circle cx="12" cy="8" r="3"/></svg>
+        <h3>Sobrancelha</h3>
+        <p class="desc">Alinhamento na navalha ou pinça, sem tirar a naturalidade.</p>
+        <div class="meta"><span class="price">R$ 20</span><span class="time">15 min</span></div>
+      </div>
+      <div class="service-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3v18M5 8l14 8M19 8 5 16"/></svg>
+        <h3>Pigmentação</h3>
+        <p class="desc">Disfarça falhas na barba ou no cabelo com efeito natural.</p>
+        <div class="meta"><span class="price">R$ 50</span><span class="time">30 min</span></div>
+      </div>
+      <div class="service-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="18" r="1.4" fill="currentColor" stroke="none"/></svg>
+        <h3>Corte Infantil</h3>
+        <p class="desc">Paciência e técnica para o primeiro corte de estilo do seu filho.</p>
+        <div class="meta"><span class="price">R$ 35</span><span class="time">35 min</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="diferenciais">
+  <div class="wrap">
+    <div class="diff-wrap">
+      <div class="diff-visual reveal">
+        <svg viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="70" stroke="#DA7133" stroke-width="1"/>
+          <path d="M60 90 L100 60 L140 90 L120 140 L80 140 Z" stroke="#E89B62" stroke-width="1.2"/>
+          <circle cx="100" cy="95" r="8" fill="#DA7133"/>
+        </svg>
+      </div>
+      <div class="reveal">
+        <div class="section-head" style="margin-bottom:36px;">
+          <div class="eyebrow"><span class="razor-line"></span>Por que a Highmen</div>
+          <h2>Técnica de verdade, sem enrolação</h2>
+        </div>
+        <div class="diff-list">
+          <div class="diff-item">
+            <span class="num">01</span>
+            <div><h4>Barbeiros especializados em fade</h4><p>Cada barbeiro é treinado nas técnicas de degradê que estão em alta agora — sem improviso.</p></div>
+          </div>
+          <div class="diff-item">
+            <span class="num">02</span>
+            <div><h4>Horário sem estresse</h4><p>Marque pelo WhatsApp e chegue na hora certa. Sem fila, sem espera desnecessária.</p></div>
+          </div>
+          <div class="diff-item">
+            <span class="num">03</span>
+            <div><h4>Ambiente pensado pra você</h4><p>Cadeiras confortáveis, bebida de cortesia e um espaço que é só seu por 40 minutos.</p></div>
+          </div>
+          <div class="diff-item">
+            <span class="num">04</span>
+            <div><h4>Produtos de primeira linha</h4><p>Navalhas afiadas na hora, toalhas quentes e finalizadores premium em todo atendimento.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="razor-line"></span>Galeria</div>
+      <h2>Nosso trabalho fala por nós</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <a class="gallery-tile" href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">
+        <img src="fotos/corte1.png" alt="Corte cacheado com desenho na nuca - Highmen Barbershop">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a class="gallery-tile" href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">
+        <img src="fotos/corte2.png" alt="Corte com risco na nuca - Highmen Barbershop">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a class="gallery-tile" href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">
+        <img src="fotos/corte3.png" alt="Corte platinado com fade - Highmen Barbershop">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a class="gallery-tile" href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">
+        <img src="fotos/corte4.png" alt="Degradê com risco frontal - Highmen Barbershop">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a class="gallery-tile" href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">
+        <img src="fotos/corte5.png" alt="Corte com barba alinhada - Highmen Barbershop">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a class="gallery-tile" href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">
+        <img src="fotos/corte6.png" alt="Fade com desenho artístico - Highmen Barbershop">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+    </div>
+    <div class="gallery-cta reveal">Quer ver mais cortes? <a href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener">@highmen.barbershop no Instagram</a></div>
+  </div>
+</section>
+
+<section id="depoimentos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="razor-line"></span>Depoimentos</div>
+      <h2>Quem já sentou na cadeira</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Melhor fade que já fiz na região. Saí de lá com a autoestima nas alturas."</p>
+        <div class="who">— Rafael M.</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Atendimento pontual, ambiente top e o barbeiro entende exatamente o que eu quero."</p>
+        <div class="who">— Lucas T.</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"A barba na navalha é outro nível. Virei cliente fixo depois da primeira vez."</p>
+        <div class="who">— Diego A.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reserva" class="booking">
+  <div class="wrap">
+    <div class="booking-wrap">
+      <div class="booking-info reveal">
+        <div class="eyebrow"><span class="razor-line"></span>Localização &amp; horário</div>
+        <h2>Encontre a gente</h2>
+        <p>Ajuste o endereço, telefone e horário reais da barbearia aqui embaixo antes de publicar a página.</p>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-7.2-7-12a7 7 0 1 1 14 0c0 4.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <div><div class="label">Endereço</div><div class="value">Rua Miss Martha Watts, 305 - Nova América - Piracicaba</div></div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <div><div class="label">Horário</div><div class="value">Ter a Sáb — 9h às 20h</div></div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 5a2 2 0 0 1 2-2Z"/></svg>
+          <div><div class="label">WhatsApp</div><div class="value">(19) 98143-7634</div></div>
+        </div>
+      </div>
+      <div class="booking-panel reveal">
+        <div class="badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#DA7133" stroke-width="1.5" width="24" height="24"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 5a2 2 0 0 1 2-2Z"/></svg>
+        </div>
+        <h3>Pronto pro seu novo corte?</h3>
+        <p>Clique no link abaixo e garanta seu horário — resposta rápida, sem enrolação.</p>
+        <a href="https://wa.me/5519981437634" class="btn-primary" target="_blank" rel="noopener">Agende seu horário</a>
+        <a href="https://www.instagram.com/highmen.barbershop/" class="btn-secondary" target="_blank" rel="noopener">Seguir no Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="logo">HIGHMEN<span class="dot">.</span></div>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/highmen.barbershop/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 5a2 2 0 0 1 2-2Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Highmen Barbershop. Todos os direitos reservados.</span>
+      <span>Feito com precisão, do jeito que um corte deveria ser.</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5511999999999" class="float-wa" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 14l5 2v4a2 2 0 0 1-2 2C9.6 22 2 14.4 2 5a2 2 0 0 1 2-2Z"/></svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
